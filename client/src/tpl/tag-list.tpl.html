@@ -1,0 +1,8 @@
+<div>
+	<h3>Tags</h3>
+	<div class="list-group">
+	<a href="#/tags/{{tag.id}}" class="list-group-item" ng-repeat="tag in tags">
+	  <span class="badge" ng-bind="tag.count"></span>
+	  <h4 class="list-group-item-heading" ng-bind="tag.id"></h4>
+	</a>
+</div>

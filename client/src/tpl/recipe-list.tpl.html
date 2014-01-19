@@ -1,0 +1,10 @@
+<div>
+	<h3>{{heading}}</h3>
+	<div class="list-group">
+	<a href="#/recipes/{{recipe.key}}" class="list-group-item" ng-repeat="recipe in recipes">
+	  <h4 class="list-group-item-heading" ng-bind="recipe.title"></h4>
+	  <p class="list-group-item-text" ng-bind="recipe.description"></p>
+	</a>
+	</div>
+	<pagination num-pages="pagination.count" current-page="pagination.current" on-select-page="changePage(page)"></pagination>
+</div>

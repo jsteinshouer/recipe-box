@@ -1,0 +1,9 @@
+<div class="container" style="margin-top: 30px">
+<form class="form-signin" role="form">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <div class="alert alert-warning" ng-show="authError">{{authError}}</div>
+    <input type="text" class="form-control input-lg" ng-model="user.id" placeholder="Username" required autofocus>
+    <input type="password" class="form-control input-lg" placeholder="Password" ng-model="user.password" required>
+    <button class="btn btn-lg btn-primary btn-block" ng-click="login()" ng-disabled='form.$invalid'>Sign in</button>
+  </form>
+</div>
