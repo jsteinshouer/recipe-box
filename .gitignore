@@ -1,6 +1,8 @@
 app/dist
 data
 initDB.js
+Dockerfile
+docker-compose.yml
 *.sublime-project
 *.sublime-workspace
 **/node_modules
