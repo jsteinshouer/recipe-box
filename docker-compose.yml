@@ -1,0 +1,23 @@
+version: "2"
+
+services:
+  webapp:
+    depends_on: [mongodb]
+    build: .
+    ports:
+      - "8000:8080"
+    # environment:
+    #   - MONGODB_USER=""
+    #   - MONGODB_PASSWORD=""
+  mongodb: 
+    image: bitnami/mongodb:latest
+    ports:
+      - "27017:27017"
+    # environment:
+    #   - MONGODB_ROOT_PASSWORD=""
+    #   - MONGODB_USERNAME=""
+    #   - MONGODB_PASSWORD=""
+    #   - MONGODB_DATABASE=""
+    volumes:
+     - ./data/db:/data/db
+     - ./data/dump:/data/dump

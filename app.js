@@ -21,7 +21,6 @@ routes.configure({config: config});
 
 /* Model */
 var mongoose = require('mongoose');
-mongoose.connect(config.mongo.url);
 
 var recipesModel = require('./model/recipes');
 var usersModel = require('./model/users');
@@ -64,6 +63,33 @@ app.get('/tags',routes.validateToken, recipes.tags);
 app.get('/tags/:tag',routes.validateToken, recipes.tag);
 app.post('/authorize', passport.authenticate('local',{ session: false }), routes.grantToken);
 
-http.createServer(app).listen(config.port,config.host, function(){
-  console.log('Express server listening at http://' + config.host + ':' + config.port);
-});
+var connectWithRetry = function() {
+  
+  return mongoose.connect(config.mongo.url,{ }, function(err) {
+    if (err) {
+      console.error('Failed to connect to mongo on startup - retrying in 5 sec', err);
+      setTimeout(connectWithRetry, 5000);
+    }
+    else {
+    	http.createServer(app).listen(config.port,config.host, function(){
+		  console.log('Express server listening at http://' + config.host + ':' + config.port);
+		});
+    }
+  });
+  
+};
+connectWithRetry();
+
+/* https://devcenter.heroku.com/articles/mean-apps-restful-api#connect-mongodb-and-the-app-server-using-the-node-js-driver */
+// mongoose.connect(config.mongo.url,{ }, function(err) {
+
+// 	if (err) {
+// 		console.log(err);
+// 		process.exit(1);
+// 	}
+	
+// 	http.createServer(app).listen(config.port,config.host, function(){
+// 	  console.log('Express server listening at http://' + config.host + ':' + config.port);
+// 	});
+
+// });
